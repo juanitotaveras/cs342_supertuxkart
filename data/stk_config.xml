@@ -1,0 +1,470 @@
+<?xml version="1.0"?>
+
+<config>
+  <!--  Minimum and maximum kart versions that can be used by this binary.
+        Older version will be ignored. -->
+  <kart-version min="2" max="3"/>
+
+  <!-- Minimum and maxium track versions that be be read by this binary.
+       Older versions will be ignored. -->
+  <track-version min="6" max="7"/>
+
+  <!-- Maximum number of karts to be used at the same time. This limit
+       can easily be increased, but some tracks might not have valid start
+       positions for those additional karts. -->
+  <karts max-number="20"/>
+
+  <!-- Scores are the number of points given when the race ends. -->
+  <grand-prix>
+  <!-- Establish the distribution of points in GP.
+
+       For a race of N karts ; the N-first point values are taken.
+       Then, they are sorted. E.g. ; 0 1 2 1 3 2 becomes 0 1 1 2 2 3.
+       Then these numbers are used to establish the DIFFERENCE of points
+       between consecutive karts.
+
+       The smaller of the numbers is used to establish the score for the
+       last kart and not the difference between 2 karts.
+
+       In the above example, the last kart will have 0 point, the one before
+       before 1 (0+1) ; the one before 2 (0+1+1), the one before 4 (0+1+1+2),
+       etc. until the 1st which have 9 (0+1+1+2+2+3)
+
+       There shall be at least as much points nodes as max-numbers kart -->
+    <points points="0" /> <!-- added with 1 kart, score for the last kart -->
+    <points points="1" /> <!-- added with 2 karts -->
+    <points points="1" /> <!-- added with 3 karts -->
+    <points points="2" /> <!-- added with 4 karts -->
+    <points points="2" /> <!-- added with 5 karts -->
+    <points points="1" /> <!-- added with 6 karts -->
+    <points points="3" /> <!-- added with 7 karts -->
+    <points points="2" /> <!-- added with 8 karts -->
+    <points points="3" /> <!-- added with 9 karts -->
+    <points points="1" /> <!-- added with 10 karts -->
+    <points points="4" /> <!-- added with 11 karts -->
+    <points points="2" /> <!-- added with 12 karts -->
+    <points points="1" /> <!-- added with 13 karts -->
+    <points points="3" /> <!-- added with 14 karts -->
+    <points points="2" /> <!-- added with 15 karts -->
+    <points points="1" /> <!-- added with 16 karts -->
+    <points points="4" /> <!-- added with 17 karts -->
+    <points points="2" /> <!-- added with 18 karts -->
+    <points points="3" /> <!-- added with 19 karts -->
+    <points points="1" /> <!-- added with 20 karts -->
+    <points points="5" /> <!-- added with 21 karts -->
+    <points points="2" /> <!-- added with 22 karts -->
+    <points points="1" /> <!-- added with 23 karts -->
+    <points points="3" /> <!-- added with 24 karts -->
+    <points points="4" /> <!-- added with 25 karts -->
+    <points points="1" /> <!-- added with 26 karts -->
+    <points points="2" /> <!-- added with 27 karts -->
+    <points points="1" /> <!-- added with 28 karts -->
+    <points points="3" /> <!-- added with 29 karts -->
+    <points points="5" /> <!-- added with 30 karts -->
+  </grand-prix>
+
+  <!-- Time in follow-the-leader after which karts are removed.
+       The last values applies for all remaining karts.
+       time-per-kart Additional time added to the interval
+       for each kart in the race. -->
+  <follow-the-leader intervals="30 20 10"
+                     time-per-kart="0"  />
+
+  <!-- Startup information.
+       Penalty: Penalty time if a kart accelerates before GO. -->
+  <startup penalty="1" />
+
+  <!-- How often a news message is going to be displayed before
+       it will be ignored. -->
+  <news max-display="10"/>
+
+  <!-- smooth-normals: If the normals (for wheel raycasts) should be smoothened.
+          This is a global setting, it still needs to be activated for each
+          track individually.
+       smooth-angle-limits: If the angle between the normal of a vertex and
+          the normal of a triangle are larger than this value, the normal
+          of the triangle will be used in interpolating the normals. This
+          has the effect of an edge split modifier - if the flat track and (say)
+          a wall at a 90 egree angle are not separated, the normal at that
+          vertex will be 45 degrees, resulting in completely wrong physics.
+          The angle limit in this case will discard the 45 degrees, and use
+          the normal of the flat triangle (pointing upwards). In the worst
+          case (all three normals discarded, the interpolation will just
+          return the normal of the triangle (i.e. de facto no interpolation),
+          but it helps making smoothing much more useful without fixing tracks.
+      default-track-friction: Default friction to be used for the track and
+          any track/library pbject.
+      default-moveable-friction: Default friction to be used for any moveable,
+          e.g. karts, bowling balls, ...
+      -->
+  <physics smooth-normals="true"
+           smooth-angle-limit="0.65"
+           default-track-friction="0.5"
+           default-moveable-friction="0.5" />
+
+  <!-- The title music. -->
+  <music title="main_theme.music"/>
+
+  <!--  Replay related values, mostly concerned with saving less data
+        and using interpolation instead.
+        max-time: Maximum race time that can be saved in a replay/history file.
+        delta-t Minumum time between saving consecutive transform events.
+        delta-pos If the interpolated position is within this delta, a
+                transform event is not generated.
+        delta-angle If the interpolated angle is within this delta,
+                a transform event is not generated. -->
+  <replay max-time="600" delta-t="0.05"  delta-pos="0.1"
+          delta-angle="0.5" />
+
+  <!-- Skidmark data: maximum number of skid marks, and
+       time for skidmarks to fade out. Maximum number will over
+       current number of karts, so the more karts, the less
+       skidmark is on track. -->
+  <skid-marks max-number="500"  fadeout-time="60"/>
+
+  <!-- Defines when the upright constraint should be active, it's
+       disabled when the kart is more than this value from the track. -->
+  <near-ground distance="2"/>
+
+  <!-- How long the end animation will be shown. -->
+  <delay-finish time="0.5"/>
+
+  <!-- How long the music credits are shown. -->
+  <credits music="10"/>
+
+  <!-- time is the time till a bomb explodes. time-increase is the time added
+       to timer when bomb is passed on. -->
+  <bomb time="30.0" time-increase="-5.0"/>
+
+  <!-- Powerup collect-mode decides what is collected if a kart has already an
+       powerup: same: get one more item of the same type.
+                new:  always get a new item.
+                only-if-same: if the random item is the same one as the
+                      one currently owned, increase the number, otherwise
+                      no more/new item s are given to the kart. -->
+  <powerup collect-mode="new"/>
+  <!-- time: How long a switch is being effective.
+       items for each item list the index of the item it is switched with.
+             Order: giftbox, banana, big-nitro, small-nitro, bubble-gum, trigger,
+                    nolok-bubble-gum, easter egg -->
+  <switch time="5"  items="1 0 4 4 2 5 2 7"/>
+
+  <!-- disappear-counter: How often bubblegum gets driven over before it disappears.
+       shield-time: How long the bubblegum shield lasts
+       restrict-weapons: If true, using weapons will destroy the user's shield -->
+  <bubblegum disappear-counter="1" shield-time="10.0" restrict-weapons="false"/>
+
+  <!-- explosion-impulse-objects is the impulse that pushes physical objects
+       away if there is an explosion. -->
+  <explosion impulse-objects="500.0" />
+
+  <!-- Networking - the current networking code is outdated and will not
+      work anymore - so for now don't enable this. -->
+  <networking enable="false"/>
+
+  <!-- The field od views for 1-4 player split screen. fov-3 is
+       actually not used (since 3 player split screen uses the
+       same layout as 4 player split screen) -->
+  <camera fov-1="80" fov-2="65" fov-3="50" fov-4="75" cutscene-fov="0.61" />
+
+  <!-- disable-while-unskid: Disable steering when stop skidding during
+           the time it takes to adjust the physical body with the graphics.
+       camera-follow-skid: If true the camera will stay behind the kart,
+           potentially making it easier to see where the kart is going to
+           after a skid. -->
+  <steer disable-while-unskid="false"
+         camera-follow-skid="true"     />
+
+  <!-- Default values for all karts
+       ============================ -->
+  <general-kart-defaults>
+
+    <!-- Skidding: increase: multiplicative increase of skidding factor in each frame.
+         decrease: multiplicative decrease of skidding factor in each frame.
+         max: maximum skidding factor = maximum increase of steering angle.
+         time-till-max: Time till maximum skidding is reached.
+         visual: Additional graphical rotation of kart. The graphical rotation
+           of the kart also determines the direction the kart is driving to
+           when skidding is stopped.
+         visual-time: How long it takes for the visual skid to reach maximum.
+         revert-visual-time: how long it takes when stopping a skid to revert
+           the visual skid and bring visuals and physics in sync again.
+         angular-velocity: Angular velocity to be used for the kart when skidding.
+         min-speed: Minimum speed a kart must have before it can skid. Must be
+           >0, otherwise the kart can skid at the start of the race.
+         time-till-bonus: How long a kart needs to skid in order to get a bonus.
+         bonus-force: A speedup applied to the kart whick skidded for a while.
+         bonus-time: How long the bonus-force is applied.
+         bonus-force: Additional engine force (this is used to offset the fact
+           that turning after skidding (e.g. to correct direction) often uses
+           up the skid bonus).
+         post-skid-rotate-factor: a factor to be used to determine how much
+           the chassis of a kart should rotate to match the graphical view.
+           A factor of 1 is identical, a smaller factor will rotate the kart
+           less (which might  feel better).
+         physical-jump-time: Time for a physical jump at the beginning of a skid.
+         graphical-jump-time: Time for a graphics-only jump at the beginning
+           of a skid.
+         reduce-turn-min/max: The steering done by the controller (which is in
+           [-1,1]) is mapped to [reduce-turn-min, reduce-turn-max] when skidding
+           is active (for left turn, right turn will use [-max, -min]). The
+           effect is that while you skid (say left) you can adjust the direction
+           of the turn the kart is doing somewhat by steering to the left and right,
+           but you will always keep on doing a left turn, just more or less. -->
+
+    <!-- Kart-specific settings used by the AI.
+         use-slipstream: if the AI should try to overtake karts using slipstream.
+         disable-slipstream-usage: even if the AI is not trying to use slipstream,
+           it can get a lot of bonus, esp. on easy since the AI creates trains.
+           Set this to true to make sure AI does not get any slipstream bonus.
+         shield-incoming-radius: Radius at which projectiles will be detected and
+           trigger a shield usage.
+         false-start-probability: Probability of a false start.
+         min/max-start-delay: Minimum and maximum start delay.
+           See http://www.humanbenchmark.com/tests/reactiontime/stats.php
+           Average reaction time is around 0.215 s.
+         nitro-usage: "none", "some", "all": if nitro should be used, and
+           how much the AI should try to use it good.
+         non-random-item-usage: If true, use items in a sophisticated way,
+           otherwise use items randomly.
+         collect-avoid-items: if the AI should collect and avoid items,
+           or just ignore them.
+         handle-bomb: If the AI should actively try to pass on a bomb.
+         skidding-threshold: only for old-style skidding: when sharp turn
+           should be triggered. Smaller values means it will sharp turn
+           earlier, resulting in better driving in thight curves.
+
+
+         max-item-angle: Items that would need more than this change in
+           direction are not considered for collection.
+         time-full-steer is the time for the AI to go from neutral steering to
+           extreme left (or right). This can be used to reduce
+           'shaking' of AI karts caused by changing steering direction
+           too often. It also helps with making it easier to push the
+           AI karts (otherwise micro-corrections make this nearly
+           impossible). A value of 1/maxFPS / 2 will guarantee that
+           the wheel can go from -1 to +1 steering in one frame,
+           basically  disabling this mechanism.
+         bad-item-closeness is the maximum distance between a good and a
+           bad item which can force the AI to abandon a good item in order
+           to avoid hitting a bad item. If the distance is larger, it is
+           assumed that there will be enough time to change steering
+           direction.
+         straight-length-for-zipper is the minimum length a straight
+           section of the track should have in order to activate a zipper.
+
+           competitive when ahead of the player, or more competitive
+           when behind the player.
+
+         skid-probability: Since the AI is usually very good at using
+           skidding, this is used to implement some rubber-banding for
+           the AI: depending on distance to the player, the AI will
+           change the probability of skidding. This attributes takes
+           a space-separated list of "distance:probability" pairs
+           (negative distances meaning the kart is behind the player,
+           a positive number that the AI is ahead of the player).
+           Then list should have at least 2 entries. Depending on
+           the actualy distance the kart has the probability is then
+           linearly interpolated (if the AI is more than the largest
+           distance ahead, the value for the largest distance is used,
+           and similarly if the kart is more than the minimum value
+           behind).
+         speed-cap: Fraction of maximum speed the kart should drive
+           at. Used to slow down karts that are ahead of the player.
+           Note that setting this to a value >1 does NOT increase
+           the speed the kart can drive at!
+         collect-item-probability: Probability of the AI actually
+           trying to collect an item (if an item is selected for
+           collection in the first place).
+    -->
+    <ai>
+        <easy   time-full-steer="0.1"
+                straight-length-for-zipper="35"
+                use-slipstream="false"
+                disable-slipstream-usage="true"
+                shield-incoming-radius="0"
+                false-start-probability="0.08"
+                min-start-delay="0.3" max-start-delay="0.5"
+                nitro-usage="none"
+                non-random-item-usage="false"
+                collect-avoid-items="false"
+                handle-bomb="false"
+                speed-cap="-10:1.0 -5:0.9 5:0.8 20:0.7 50:0.6"
+                max-item-angle="0.7" max-item-angle-high-speed="0.3"
+                bad-item-closeness="6"
+                collect-item-probability="0:0"
+                rb-skid-probability="0:0.0"
+                skidding-threshold="4.0"
+                />
+        <medium time-full-steer="0.1"
+                straight-length-for-zipper="35"
+                use-slipstream="false"
+                disable-slipstream-usage="false"
+                shield-incoming-radius="10"
+                false-start-probability="0.04"
+                min-start-delay="0.25" max-start-delay="0.4"
+                nitro-usage="some"
+                non-random-item-usage="true"
+                collect-avoid-items="true"
+                handle-bomb="false"
+                speed-cap="10:1.0 50:0.8"
+                max-item-angle="0.7" max-item-angle-high-speed="0.3"
+                bad-item-closeness="6"
+                collect-item-probability="-10:1.0 0:0"
+                rb-skid-probability="0:0.0"
+                skidding-threshold="3.0"
+                />
+        <hard   time-full-steer="0.1"
+                straight-length-for-zipper="35"
+                use-slipstream="true"
+                disable-slipstream-usage="false"
+                shield-incoming-radius="10"
+                false-start-probability="0.01"
+                min-start-delay="0.15" max-start-delay="0.28"
+                nitro-usage="all"
+                non-random-item-usage="true"
+                collect-avoid-items="true"
+                handle-bomb="true"
+                speed-cap="20:1.0 50:0.8"
+                max-item-angle="0.7" max-item-angle-high-speed="0.3"
+                bad-item-closeness="6"
+                collect-item-probability="10:1.0 20:0"
+                rb-skid-probability="-50:1.0 -20:0.7 20:0.2 50:0.0"
+                skidding-threshold="2.0"
+                />
+        <best   time-full-steer="0.1"
+                straight-length-for-zipper="35"
+                use-slipstream="true"
+                disable-slipstream-usage="false"
+                shield-incoming-radius="10"
+                false-start-probability="0.0"
+                min-start-delay="0.15" max-start-delay="0.2"
+                nitro-usage="all"
+                non-random-item-usage="true"
+                collect-avoid-items="true"
+                handle-bomb="true"
+                speed-cap="0:1.0"
+                max-item-angle="0.7" max-item-angle-high-speed="0.3"
+                bad-item-closeness="6"
+                collect-item-probability="0:1.0"
+                rb-skid-probability="0:1.0"
+                skidding-threshold="2.0"
+                />
+    </ai>
+
+    <!-- Parameters for the speed-weighted objects:
+         a bigger value for strength-factor leads to the speed of the kart more quickly affecting
+         the strength of the animation (up to a maximum value that corresponds to the original animation) -->
+    <speed-weighted-objects strength-factor="0.05" speed-factor="1.0" texture-speed-x="0.0" texture-speed-y="0.0"/>
+
+    <!-- friction: slip used for bullet skidding. A high value
+         (like 10000000) disables bullet skidding. -->
+    <friction slip="10000000"/>
+
+    <!-- collision
+         impulse-type: STK can apply an additional impulse in case of
+           kart-track collision:
+             'none' : no additional impulse
+             'normal': impulse along the normal
+             'driveline': impulse towards the nearest driveline.
+           An impulse towards the driveline works nice when the kart is
+           driving more or less correctly on the track - it pushes the
+           kart in the right direction. But if the kart is significanlty
+           off track, it has severe problems (since an incorrect
+           driveline point can be selected, pusing the kart in the
+           wrong direction, sometimes even causing a 'zip-along-obstacle'
+           effect.
+         impulse: an additional impulse to be applied in a non-frontal
+           collision to push two karts away from each other.
+         impulse-time: The impulse will be applied over a certain time
+           period, which results in less abrupt changes. If set to 0,
+           the impulse is only applied once.
+         resitution: restitution value to be used for the kart rigid bodies.
+         bevel-factor: for each point of the chassis collision box one
+           additional point is added, resulting in a bevelled box shape.
+           The original Z coordinate of the chassis is multiplied by
+           1-bevelZ (i.e. the main box part of the shape is shortened).
+           The bevel point has the original Z coordinate, and the X and
+           Y coordinates of the box are multiplied with (1-bevelX) and
+           (1-bevelY).  A value of 0 for all bevel coordinates disables
+           bevelling, and uses a simple box shape.
+           As an example, a value of 1 for x and z will result in a
+           sharp 'arrow' like shape.
+         physical-wheel-position: Defines where the 'physical' (raycast)
+           wheel will be located. It's a weight factor with 0 = being
+           at the widest side of the bevel, 1 = at the front and
+           narrowest part of the kart. If the value is less than 0, the old
+           physics settings are used which places the raycast wheels
+           outside of the chassis and results in more stable physical
+           behaviour of the karts. -->
+    <collision impulse-type="normal"
+               impulse="3000" impulse-time="0.1" terrain-impulse="160"
+               restitution="1.0" bevel-factor="0.5 0.0 0.3"
+               physical-wheel-position="0" />
+
+     <!-- Skidding: increase: multiplicative increase of skidding factor in each frame.
+              decrease: multiplicative decrease of skidding factor in each frame.
+              max: maximum skidding factor = maximum increase of steering angle.
+              time-till-max: Time till maximum skidding is reached.
+              visual: Additional graphical rotation of kart. The graphical rotation
+                of the kart also determines the direction the kart is driving to
+                when skidding is stopped.
+              visual-time: How long it takes for the visual skid to reach maximum.
+              revert-visual-time: how long it takes when stopping a skid to revert
+                the visual skid and bring visuals and physics in sync again.
+              angular-velocity: Angular velocity to be used for the kart when skidding.
+              min-speed: Minimum speed a kart must have before it can skid. Must be
+                >0, otherwise the kart can skid at the start of the race.
+              time-till-bonus: How long a kart needs to skid in order to get a bonus.
+              bonus-force: A speedup applied to the kart whick skidded for a while.
+              bonus-time: How long the bonus-force is applied.
+              bonus-force: Additional engine force (this is used to offset the fact
+                that turning after skidding (e.g. to correct direction) often uses
+                up the skid bonus).
+              post-skid-rotate-factor: a factor to be used to determine how much
+                the chassis of a kart should rotate to match the graphical view.
+                A factor of 1 is identical, a smaller factor will rotate the kart
+                less (which might  feel better).
+              physical-jump-time: Time for a physical jump at the beginning of a skid.
+              graphical-jump-time: Time for a graphics-only jump at the beginning
+                of a skid.
+              reduce-turn-min/max: The steering done by the controller (which is in
+                [-1,1]) is mapped to [reduce-turn-min, reduce-turn-max] when skidding
+                is active (for left turn, right turn will use [-max, -min]). The
+                effect is that while you skid (say left) you can adjust the direction
+                of the turn the kart is doing somewhat by steering to the left and right,
+                but you will always keep on doing a left turn, just more or less. -->
+     <skid increase="1.05" decrease="0.95" max="2.5" time-till-max="0.5"
+         visual="1.25" visual-time="0.7" revert-visual-time="0.7"
+         min-speed="10"  time-till-bonus="1.0 3.0"
+         bonus-speed="4.5 6.5" bonus-time="3.0 4.0"
+         bonus-force="250 350"
+         physical-jump-time="0" graphical-jump-time="0.4"
+         post-skid-rotate-factor="1"
+         reduce-turn-min="0.2" reduce-turn-max="0.8"/>
+
+     <kart-type>
+         <light />
+         <medium />
+         <heavy />
+     </kart-type>
+  </general-kart-defaults>
+
+  <!-- Here are the default fonts file names for STK.
+
+  Please DO NOT report bugs if there're crashes when using your custom font.
+  This usually happen because the character map of the font is not in unicode mode
+  (let's take Chinese for example, some fonts of it store the characters in BIG5 mode,
+  which leads to crash with STK), but the fonts are to blame, what's the point of not
+  using industry standard nowadays...
+  -->
+  <fonts-list normal-ttf="Cantarell-Regular.otf FreeSans.ttf wqy-microhei.ttf NotoNaskhArabicUI-Bold.ttf"
+              digit-ttf="SigmarOne.otf" />
+
+  <!-- Maximum bones from all animated meshes in each frame to be uploaded for
+       hardware skinning, For gles 3.0 the specification guarantees at least 2048, for
+       TBO in desktop at least 65536 (max buffer size) / 64, SSBO at least 2^24 / 64,
+       so 1024 will work everywhere. -->
+  <skinning max-bones="1024"/>
+
+</config>

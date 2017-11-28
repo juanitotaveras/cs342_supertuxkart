@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<challenge version="2">
+    <track id="xr591" laps="2"/>
+    <mode major="single" minor="quickrace"/>
+    <requirements trophies="135"/>
+    
+    <hard>
+        <karts number="1"/>
+        <requirements energy="18" time="120"/>
+    </hard>
+    <medium>
+        <karts number="1"/>
+        <requirements energy="15" time="135"/>
+    </medium>
+    <easy>
+        <karts number="1"/>
+        <requirements energy="12" time="180"/>
+    </easy>
+</challenge>
+
+
