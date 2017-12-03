@@ -64,8 +64,8 @@ def play_game(unused):
 	action = 0
 	data = []
 	while go:
-		while (q.empty()):
-			sleep(0.01)
+		# while (q.empty()):
+		# 	sleep(0.01)
 		if not q.empty():
 			action = q.get()
 			print ("action: ", action)
@@ -88,7 +88,7 @@ def play_game(unused):
 		draw()
 		sleep(0.01) # one millisecond?
 	K.quit()
-	np.save("training.npz",data)
+	np.save("racing_data",data)
 
 
 try:
