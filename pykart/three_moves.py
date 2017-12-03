@@ -12,6 +12,7 @@ VALID_ACTIONS = 8
 STATES = 10
 GRAPH_NAME = "three-moves.tfg"
 TRAINING = False
+EPOCHS = 100
 
 def parser(data):
 	# data = np.load(file)
@@ -202,7 +203,7 @@ class ImitationLearner():
 	def __init__(self):
 
 		self.initialize_vars = False
-		self.EPOCHS = 100
+		self.EPOCHS = EPOCHS
 		self.train_losses = []
 		self.valid_losses = []
 
