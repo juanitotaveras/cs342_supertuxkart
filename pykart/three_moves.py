@@ -1,4 +1,4 @@
-from pykart import Kart
+#from pykart import Kart
 from time import sleep, time
 from random import random
 import tensorflow as tf
@@ -11,7 +11,7 @@ import util
 VALID_ACTIONS = 8
 STATES = 10
 
-TRAINING = False
+TRAINING = True
 
 def parser(data):
 	# data = np.load(file)
@@ -202,7 +202,7 @@ class ImitationLearner():
 	def __init__(self):
 
 		self.initialize_vars = False
-		self.EPOCHS = 15
+		self.EPOCHS = 100
 		self.train_losses = []
 		self.valid_losses = []
 
@@ -254,7 +254,7 @@ class ImitationLearner():
 					 self.in_frame:validation_data[2]})
 			self.valid_losses.append(validation_loss)
 			print("validation loss: ", np.mean(self.valid_losses))
-		util.save("three-moves.tfg",session=self.sess)
+		util.save("three-moves_100_epochs.tfg",session=self.sess)
 
 	def predict_action(self, frame):
 		PA = self.sess.run([self.action_logit], {self.in_frame: frame})[0][0]
@@ -297,7 +297,7 @@ if TRAINING:
 	# il.train(train_3, valid_d)
 	# 	il.train(d,parser("training.npy"))
 		
-	t_11 = np.load("training.npy")
+	t_11 = np.load("racing_data.npy")
 	#t_12 = np.load("training12.npy")
 	# t_1 = np.load("kart-data/training1.npy")
 	# t_2 = np.load("kart-data/training2.npy")
