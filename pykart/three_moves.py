@@ -1,4 +1,4 @@
-#from pykart import Kart
+from pykart import Kart
 from time import sleep, time
 from random import random
 import tensorflow as tf
@@ -10,8 +10,9 @@ import util
 
 VALID_ACTIONS = 8
 STATES = 10
-
-TRAINING = True
+GRAPH_NAME = "three-moves.tfg"
+TRAINING = False
+EPOCHS = 100
 
 def parser(data):
 	# data = np.load(file)
@@ -202,7 +203,7 @@ class ImitationLearner():
 	def __init__(self):
 
 		self.initialize_vars = False
-		self.EPOCHS = 100
+		self.EPOCHS = EPOCHS
 		self.train_losses = []
 		self.valid_losses = []
 
@@ -347,7 +348,7 @@ if TRAINING:
 		pause(0.001)
 else:
 	sess = tf.Session()
-	util.load("three-moves.tfg", session=sess)
+	util.load(GRAPH_NAME, session=sess)
 	t0 = time()
 	K = Kart("lighthouse", 500, 500)
 	t1 = time()
